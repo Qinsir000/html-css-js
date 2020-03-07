@@ -3,9 +3,7 @@
         return new jQuery.prototype.init(selector);
     }
     jQuery.prototype.init = function (selector) {
-        // this = {};
         // 选出 dom 并且包装成jQuery对象  返回
-        // id class
         this.length = 0;
         // null undefined dom
         if (selector == null) {
@@ -28,7 +26,6 @@
                 this.length++
             }
         }
-        // return this;
     }
 
     jQuery.prototype.css = function (config) {
@@ -272,7 +269,7 @@
         }
     }
 
-
+    //defer 
     jQuery.myDeferred = function () {
         // callback 
         // 3个callback
@@ -295,9 +292,6 @@
             // arr[0][1]
 
             // 注册
-            // deferred['done'] = function () {}
-            // deferred['fail'] = function () {}
-            // deferred['progress'] = function () {}
             deferred[ arr[i][1] ] = (function (index) {
                 return function (func) {
                     arr[index][0].add(func)
@@ -305,10 +299,6 @@
             })(i);
 
             // 触发
-            // deferred['resolve'] = function () {}
-            // deferred['reject'] = function () {}
-            // deferred['notify'] = function () {}
-
             deferred[ arr[i][2] ] =  (function (index) {
                return function () {
                     var args = arguments;
