@@ -1,0 +1,38 @@
+*{
+    margin:0;
+    padding:0;
+}
+#block{
+    position: relative;
+    width:400px;
+    height:650px;
+    margin:50px auto;
+    background-color:#222;
+    box-shadow: 5px 5px 5px #888;
+
+
+}
+.square{
+    position:absolute;
+    width:10px;
+    height:10px;
+    box-sizing: border-box;
+    border-top:1px solid #fff;
+    border-right:1px solid #fff;
+}
+.board{
+    position: absolute;
+    left:150px;
+    bottom:20px;
+    width:80px;
+    height:4px;
+    background-color:#fff;
+    cursor: pointer;
+}
+.ball{
+    position: absolute;
+    width:4px;
+    height:4px;
+    border-radius: 50%;
+    background:#fff;
+}
