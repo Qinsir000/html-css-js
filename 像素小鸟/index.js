@@ -1,7 +1,3 @@
-/**
- * 返回一个计时器对象
- * thisObj，绑定的this对象
- */
 function getTimer(duration, thisObj, startCallBack, stopCallBack) {
     var timer = null;
     if (thisObj && startCallBack) {
@@ -75,8 +71,6 @@ var game = {
         for (var i = 0; i < pipes.all.length; i++) {
             var p = pipes.all[i];
             // 两个矩形碰撞检测
-            // 横向：|矩形1x中心点坐标-矩形2x中心点坐标| < 宽度和/2
-            // 纵向：|矩形1y中心点坐标-矩形2y中心点坐标| < 高度和/2
             var px = p.left + p.width / 2; //柱子x中心点
             var py = p.top + p.height / 2; //柱子y中心点
             if (Math.abs(bx - px) < (p.width + bird.width) / 2 &&
@@ -91,7 +85,7 @@ var game = {
 }
 
 /**
- * 天空背景对象
+ * 天空背景
  */
 var skyBg = {
     left: 0,
@@ -111,7 +105,7 @@ skyBg.timer = getTimer(30, skyBg, function () {
 
 
 /**
- * 大地背景对象
+ * 大地背景
  */
 var landBg = {
     left: 0,

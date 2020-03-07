@@ -31,8 +31,6 @@ var SnakeToward = {
 };
 // 默认为右方向运动
 var nowToward = SnakeToward.RIGHT;
-// 最大的食物生成数
-// var maxPropNum = 2;
 
 // 记分
 var score = 0;
@@ -144,8 +142,6 @@ function init() {
     run();
     // 键盘按下事件
     document.onkeydown = function (e) {
-        // console.log(e.keyCode)
-        // changeToward(e.code);
         changeToward(e.keyCode);
     }
 }
@@ -176,8 +172,7 @@ function createSquare(row, col, type) {
 // 展示元素
 function renderSquare(square, type) {
     square.typeValue = type.value;
-    square.style.backgroundImage = "url(" + type.url + ")";
-    // 根据键盘上下左右旋转蛇头  
+    square.style.backgroundImage = "url(" + type.url + ")";  
     square.style.transform = "rotate(" + nowToward.rotate + "deg)";
 }
 // 运动并且根据返回值判断游戏是否结束
@@ -216,22 +211,15 @@ function run() {
 
 // 向前移动函数
 function move() {
-    // pop删除并返回数组最后一个 
-    // unshift 在数组首位添加元素
-    // 先将第一位变成蛇身
     renderSquare(snake[0], SquareType.BODY);
     var temp = snake.pop();
-    // 最后一位放到第一位作为蛇头 根据当前运动方向确定位置
     temp.style.left = snake[0].offsetLeft + nowToward.x + 'px';
     temp.style.top = snake[0].offsetTop + nowToward.y + 'px';
-
-    // 将最后一位放到最前面 并且将第一位的样式设置为蛇头
     snake.unshift(temp);
     renderSquare(snake[0], SquareType.HEAD);
 }
 // 根据鼠标按下按键改变蛇运动方向
 function changeToward(code) {
-    // console.log(code)
     if (!block) {
         return;
     }
@@ -250,27 +238,19 @@ function changeToward(code) {
 }
 // 判断游戏是否结束的函数
 function checkCrash() {
-    // 水平撞到边界
-    // 右边
     if (snake[0].offsetLeft + nowToward.x + squareWidth > gameGround.clientWidth ||
-        // 左边
         snake[0].offsetLeft + nowToward.x < 0) {
         return { result: -1, target: null };
-        // 竖直撞到边界
-        // 下
     } else if (snake[0].offsetTop + nowToward.y + squareWidth > gameGround.clientHeight ||
-        // 上
         snake[0].offsetTop + nowToward.y < 0) {
         return { result: -1, target: null };
     } else {
-        // 撞到自己身体
         for (var i = 3; i < snake.length - 1; i++) {
             if (snake[0].offsetLeft + nowToward.x == snake[i].offsetLeft &&
                 snake[0].offsetTop + nowToward.y == snake[i].offsetTop) {
                 return { result: -1, target: null };
             }
         }
-        // 碰撞道具
         for (var i = 0; i < props.length; i++) {
             if (snake[0].offsetLeft + nowToward.x == props[i].el.offsetLeft &&
                 snake[0].offsetTop + nowToward.y == props[i].el.offsetTop) {
