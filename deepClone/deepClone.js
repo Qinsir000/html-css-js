@@ -6,12 +6,13 @@ const objectTag = '[object Object]';
 const argsTag = '[object Arguments]';
 
 //不可继续遍历数据类型
+// 1. 原始值的包装类，非对象，变成对象形式，可以用 valueOf()
 const boolTag = '[object Boolean]';
-const dateTag = '[object Date]';
-const errorTag = '[object Error]';
-const numberTag = '[object Number]';
-const regexpTag = '[object RegExp]';
 const stringTag = '[object String]';
+const numberTag = '[object Number]';
+//2. 这些需要做一些特殊处理
+const regexpTag = '[object RegExp]';
+const dateTag = '[object Date]';
 const symbolTag = '[object Symbol]';
 const funcTag = '[object Function]';
 
@@ -76,11 +77,12 @@ function cloneFunction(func) {
 function cloneOtherType(target, type) {
     const Ctor = target.constructor;
     switch (type) {
-        // case boolTag:
-        // case numberTag:
-        // case stringTag:
-        // case errorTag:
-        //这几种暂时没找到合适方法
+        case boolTag:
+            return baseClone(target);
+        case numberTag:
+            return baseClone(target);
+        case stringTag:
+            return baseClone(target);
         case dateTag:
             return new Ctor(target);
         case regexpTag:
@@ -111,14 +113,14 @@ function clone(target, map = new WeakMap()) {
         return target;
     }
     map.set(target, cloneTarget);
-
+    //处理 set 
     if (type === setTag) {
         target.forEach(value => {
             cloneTarget.add(clone(value));
         })
         return cloneTarget;
     }
-
+    //处理 map
     if (type === mapTag) {
         target.forEach(value => {
             cloneTarget.set(clone(value));
@@ -136,4 +138,8 @@ function clone(target, map = new WeakMap()) {
 
     return cloneTarget;
 
+}
+
+function baseClone (target) {
+    return target.valueOf();
 }
