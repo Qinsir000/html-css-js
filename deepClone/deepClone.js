@@ -49,6 +49,7 @@ function cloneSymbol(target) {
 function cloneReg(target) {
     const reFlags = /\w*$/;
     const result = new target.constructor(target.source, reFlags.exec(target));
+    return result;
 }
 //克隆方法
 function cloneFunction(func) {

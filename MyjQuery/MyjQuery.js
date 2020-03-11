@@ -20,7 +20,6 @@
             this[0] = dom || selector;
             this.length++;
         }else {
-            // 基础铺垫
             for (var i = 0; i < dom.length; i++) {
                 this[i] = dom[i];
                 this.length++

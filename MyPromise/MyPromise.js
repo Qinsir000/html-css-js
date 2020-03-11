@@ -2,7 +2,7 @@ const MyPromise = (() => {
     const PENDING = "pending",
         RESOLVED = "resolved",
         REJECTED = "rejected",
-        PromiveValue = Symbol("PromiseValue"), //状态数据
+        PromiseValue = Symbol("PromiseValue"), //状态数据
         PromiseStatus = Symbol("PromiseStatus"),
         thenables = Symbol("thenables"), //thenable
         catchables = Symbol("catchbles"), //catchables
@@ -24,7 +24,7 @@ const MyPromise = (() => {
                 return;
             }
             this[PromiseStatus] = newStatus;
-            this[PromiveValue] = newValue;
+            this[PromiseValue] = newValue;
             //执行相应队列中的函数
             queue.forEach(handler => handler(newValue));
         }
@@ -35,7 +35,7 @@ const MyPromise = (() => {
          */
         constructor(executor) {
             this[PromiseStatus] = PENDING;
-            this[PromiveValue] = undefined;
+            this[PromiseValue] = undefined;
             this[thenables] = []; //后续处理函数的数组 -> resolved
             this[catchables] = []; //后续处理函数的数组 -> rejected
 
@@ -47,7 +47,7 @@ const MyPromise = (() => {
                 this[changeStatus](REJECTED, reason, this[catchables]);
             }
             try {
-                executor(resolve, reject)
+                executor(resolve, reject);
             }
             catch (err) {
                 reject(err);
@@ -67,7 +67,7 @@ const MyPromise = (() => {
             if (this[PromiseStatus] === immediatelyStatus) {
                 //直接运行
                 setTimeout(() => {
-                    handler(this[PromiveValue]);
+                    handler(this[PromiseValue]);
                 }, 0);
             }
             else {
